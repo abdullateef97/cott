@@ -3,6 +3,7 @@ import Card from './Card';
 import FormGroup from './FormGroup'
 import Button from './Button';
 import Error from './Error';
+import Response from './Response'
 import {calculateNoOfBananas, calculateOptimumCamels} from './api'
 
 export default class Main extends Component {
@@ -16,7 +17,9 @@ export default class Main extends Component {
     errorMsg: '',
     loading: false,
     responseError: false,
-    responseErrorMessage: ''
+    responseErrorMessage: '',
+    isResponseActive: false,
+    responseMessage: ''
   }
 
   _validateInputFields(){
@@ -30,6 +33,27 @@ export default class Main extends Component {
       this.setState({error: true, errorMsg: 'Please fill ot all form fields'});
       return false;
     }
+
+    if(bananas < 3000){
+      this.setState({error: true, errorMsg: 'Number of Bananas should be greater than 3000'})
+      return false;
+    }
+
+    if(camels <= 1 || camels >= 10){
+      this.setState({error: true, errorMsg: 'Number of Camels should be between 1 and 10'})
+      return false;
+    }
+
+    if(eats <= 1 || eats >= 10){
+      this.setState({error: true, errorMsg: 'A Camel can only eat between 1 to 10 bananas per km'})
+      return false;
+    }
+
+    if(market <= 1000 || market >= 10000){
+      this.setState({error: true, errorMsg: 'Distance to market should be between 1000k to 10000km'})
+      return false;
+    }
+
     return true;
   }
 
@@ -41,15 +65,53 @@ export default class Main extends Component {
     let {bananas, camels, market, eats} = this.state;
     let response = calculateNoOfBananas(bananas, camels, market, eats);
 
-    console.log(response.error)
     if(response.error){
-      console.log(111)
       this.setState({
         responseError: true,
         responseErrorMessage: response.message
       })
+      return;
     }
+
+    this.setState({
+      isResponseActive: true,
+      error: false,
+      responseError: false,
+      responseMessage: `The farmer will have ${response.data} bananas left on getting to the market`
+    })
   }
+
+  _calculateOptimum(){
+    this.setState({loading: false})
+    let ret = this._validateInputFields();
+    if(!ret) return;
+
+    let {bananas, camels, market, eats} = this.state;
+    let response = calculateOptimumCamels(bananas);
+
+    if(response.error){
+      this.setState({
+        responseError: true,
+        responseErrorMessage: response.message
+      })
+      return;
+    }
+
+    this.setState({
+      isResponseActive: true,
+      error: false,
+      responseError: false,
+      responseMessage: `The optimum number of camels required is ${response.data}`
+    })
+  }
+
+  _closeModal = (modal) => {
+    if(modal === 'left'){
+      this.setState({
+        leftOverModal: false
+      })}
+    }
+
 
   onChangeText(key, value){
     this.setState({
@@ -81,9 +143,12 @@ export default class Main extends Component {
             </FormGroup>
             <span style={{marginTop: '10px'}}></span>
             <Error error={this.state.responseError} errorMsg={this.state.responseErrorMessage}/>
+
+            <span style={{marginTop: '10px'}}></span>
+            <Response active={this.state.isResponseActive} message={this.state.responseMessage}/>
             <div className="btn-container">
             <Button label={"Calculate"} onPress={() => this._calculateLeftOver()} isDisabled={this.state.loading}/>
-            <Button label={"Find Optimum Camels"}/>
+            <Button label={"Find Optimum Camels"} onPress={() => this._calculateOptimum()} isDisabled={this.state.loading}/>
             </div>
         </form>
       </Card>
