@@ -11,7 +11,7 @@ export function calculateNoOfBananas(bananas, camels, distance, eats){
     let no_of_banana_per_camel = bananas / camels;
     if(no_of_banana_per_camel > 1000) {
         return response({error: true,
-                    message: `Insufficient no of camels for one trip, you would need ${bananas/camels} camels for one trip`})
+                    message: `Insufficient no of camels for one trip, you would need at least ${bananas/1000} camels for one trip`})
     }
 
     let no_of_banana_a_camel_eats = distance * eats;

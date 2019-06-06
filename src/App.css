@@ -78,6 +78,14 @@ input {
   margin-bottom: 15px;
 }
 
+.err{
+  background-color: red;
+  font-size: 14;
+  justify-content: center;
+  align-items: center;
+  padding: 7px;
+  margin-bottom: 7px
+}
 
 .App-link {
   color: #61dafb;
