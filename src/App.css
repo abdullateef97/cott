@@ -2,22 +2,82 @@
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
-}
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  min-height: 10vh;
   display: flex;
-  flex-direction: column;
+  flex: 1;
+  padding-left: 30px;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
 }
+
+.card {
+  width: 500px;
+  padding: 20px;
+  box-shadow: 2px 2px 2px #282c34;
+  border-radius: 10px
+}
+.Main {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 30px
+}
+
+label {
+  margin-bottom: 5px;
+  color: #282c34;
+  text-align: left
+}
+
+input {
+  background-color: white;
+  color: #282c34;
+  padding: 5px;
+  height: 25px;
+  border-radius: 7px;
+  border: 1px solid #282c34
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch,
+}
+
+.btn-container {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center
+}
+
+.button{
+  display: flex;
+  flex: 0.4;
+  height: 40px;
+  padding: '10px 15px';
+  border: 1px solid #282c34;
+  line-height: '1';
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-right: 7px
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
 
 .App-link {
   color: #61dafb;
