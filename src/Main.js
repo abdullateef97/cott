@@ -39,17 +39,17 @@ export default class Main extends Component {
       return false;
     }
 
-    if(camels <= 1 || camels >= 10){
+    if(camels < 1 || camels > 10){
       this.setState({error: true, errorMsg: 'Number of Camels should be between 1 and 10'})
       return false;
     }
 
-    if(eats <= 1 || eats >= 10){
+    if(eats < 1 || eats > 10){
       this.setState({error: true, errorMsg: 'A Camel can only eat between 1 to 10 bananas per km'})
       return false;
     }
 
-    if(market <= 1000 || market >= 10000){
+    if(market < 1000 || market > 10000){
       this.setState({error: true, errorMsg: 'Distance to market should be between 1000k to 10000km'})
       return false;
     }
