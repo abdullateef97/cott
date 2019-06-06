@@ -14,7 +14,9 @@ export default class Main extends Component {
     eats: '',
     error: false,
     errorMsg: '',
-    loading: false
+    loading: false,
+    responseError: false,
+    responseErrorMessage: ''
   }
 
   _validateInputFields(){
@@ -38,8 +40,15 @@ export default class Main extends Component {
 
     let {bananas, camels, market, eats} = this.state;
     let response = calculateNoOfBananas(bananas, camels, market, eats);
-    console.log({response})
-    
+
+    console.log(response.error)
+    if(response.error){
+      console.log(111)
+      this.setState({
+        responseError: true,
+        responseErrorMessage: response.message
+      })
+    }
   }
 
   onChangeText(key, value){
@@ -70,6 +79,8 @@ export default class Main extends Component {
                 <label htmlFor="eats">How many banana does a camel eat</label>
                 <input id="eats" onChange={(e) => this.onChangeText('eats',e.target.value)}/>
             </FormGroup>
+            <span style={{marginTop: '10px'}}></span>
+            <Error error={this.state.responseError} errorMsg={this.state.responseErrorMessage}/>
             <div className="btn-container">
             <Button label={"Calculate"} onPress={() => this._calculateLeftOver()} isDisabled={this.state.loading}/>
             <Button label={"Find Optimum Camels"}/>
