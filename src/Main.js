@@ -49,11 +49,6 @@ export default class Main extends Component {
       return false;
     }
 
-    if(market < 1000 || market > 10000){
-      this.setState({error: true, errorMsg: 'Distance to market should be between 1000k to 10000km'})
-      return false;
-    }
-
     return true;
   }
 
